@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/).
 
 ## [Unreleased]
 
+## [1.17.1] - 2026-11-09
+
 This maintenance update improves source builds, setup and migration guidance, and core DB-API regression tests. The changes currently recorded below do not alter normal driver runtime behavior.
 
 ### Fixed
@@ -23,6 +25,33 @@ This maintenance update improves source builds, setup and migration guidance, an
 - **Checking transaction settings** — The Compat migration guide now shows how to read isolation level and lock timeout using ordinary SQL, including `GET TRANSACTION ISOLATION LEVEL TO iso` followed by `SELECT iso`. It also clarifies that `SET TRANSACTION` does not commit ([#1129](https://github.com/cubrid-lab/pycubrid/issues/1129), [PR #1136](https://github.com/cubrid-lab/pycubrid/pull/1136)) by @yeongseon.
 
 - **Moving LOB data safely** — The Compat migration guide no longer claims that wrapping a LOB handle from another connection always raises `InterfaceError`. Direct `Lob(target, ...)` rewrapping can instead store data that another transaction never committed; read the bytes and write a new LOB ([#1130](https://github.com/cubrid-lab/pycubrid/issues/1130), [PR #1141](https://github.com/cubrid-lab/pycubrid/pull/1141)) by @yeongseon.
+
+* **compat:** show how to read the isolation level and lock timeout ([#1136](https://github.com/cubrid-lab/pycubrid/issues/1136)) ([3880a6e](https://github.com/cubrid-lab/pycubrid/commit/3880a6ee2ca99a65b412d1519232184899680dc5))
+* **compat:** warn against rewrapping a LOB handle across connections ([#1141](https://github.com/cubrid-lab/pycubrid/issues/1141)) ([5c7f769](https://github.com/cubrid-lab/pycubrid/commit/5c7f7698d3179b2106d84d940e8d0cd165be2caf)), refs [#1130](https://github.com/cubrid-lab/pycubrid/issues/1130) [#1122](https://github.com/cubrid-lab/pycubrid/issues/1122)
+* **performance:** show how to import large inputs with bounded memory ([#1152](https://github.com/cubrid-lab/pycubrid/issues/1152)) ([d2939bd](https://github.com/cubrid-lab/pycubrid/commit/d2939bd1f162f364e9ca0e4de15c51ac709b7e09))
+* **release:** clarify five published v1.13.x release notes ([#1196](https://github.com/cubrid-lab/pycubrid/issues/1196)) ([cc7b67c](https://github.com/cubrid-lab/pycubrid/commit/cc7b67c109a26af73a826bfb828accd900597664))
+* **release:** clarify the initial v0.1.0 release notes ([#1181](https://github.com/cubrid-lab/pycubrid/issues/1181)) ([90a7a39](https://github.com/cubrid-lab/pycubrid/commit/90a7a39d6525482565c607becb59cf479ad4c3ce)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** clarify v0.2.0 protocol foundations ([#1183](https://github.com/cubrid-lab/pycubrid/issues/1183)) ([6c2aac7](https://github.com/cubrid-lab/pycubrid/commit/6c2aac72105bcccd916af0349c582ea240a7a88b)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** clarify v0.3.0 connection and cursor support ([#1184](https://github.com/cubrid-lab/pycubrid/issues/1184)) ([3fd62b2](https://github.com/cubrid-lab/pycubrid/commit/3fd62b2aa5954cc8e9a7feccd7da374b256e2bb4)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** clarify v0.6.0 CAS reconnection and DML batching ([#1187](https://github.com/cubrid-lab/pycubrid/issues/1187)) ([b65e70b](https://github.com/cubrid-lab/pycubrid/commit/b65e70b85299813cfa86f995f1e97c2605c6b493)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** clarify v0.7.0 support boundaries and pooling ([#1188](https://github.com/cubrid-lab/pycubrid/issues/1188)) ([6e60d33](https://github.com/cubrid-lab/pycubrid/commit/6e60d3373104be5727d5c16b6e2cf4a2214a29dd)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** clarify v1.14–v1.17 and Compat policy reversal ([#1197](https://github.com/cubrid-lab/pycubrid/issues/1197)) ([54ff913](https://github.com/cubrid-lab/pycubrid/commit/54ff91318cb2d4e21b80b4b0415363e7f052b244))
+* **release:** clarify v1.2.0 decoding and parameter compatibility ([#1191](https://github.com/cubrid-lab/pycubrid/issues/1191)) ([bcb63c1](https://github.com/cubrid-lab/pycubrid/commit/bcb63c17fce080e573e9c8c9e071f91277171ff5)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** clarify v1.7.0 compatibility and LOB safeguards ([#1193](https://github.com/cubrid-lab/pycubrid/issues/1193)) ([2f1396d](https://github.com/cubrid-lab/pycubrid/commit/2f1396dfda40510aae4f9c02f2123a034cdf4d9a)), refs [#1165](https://github.com/cubrid-lab/pycubrid/issues/1165)
+* **release:** clarify v1.7.1, v1.8.0, v1.10.0 and v1.12.0 ([#1194](https://github.com/cubrid-lab/pycubrid/issues/1194)) ([235935d](https://github.com/cubrid-lab/pycubrid/commit/235935df210184a8b373f7635a0df0cc02098838)), refs [#1165](https://github.com/cubrid-lab/pycubrid/issues/1165)
+* **release:** correct v1.0.0 protocol version and stability notes ([#1189](https://github.com/cubrid-lab/pycubrid/issues/1189)) ([6cbe004](https://github.com/cubrid-lab/pycubrid/commit/6cbe0049b29f71e411a01e98ee17c7f95fe52f05)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** credit verified authors of the first four releases ([#1198](https://github.com/cubrid-lab/pycubrid/issues/1198)) ([643d7dd](https://github.com/cubrid-lab/pycubrid/commit/643d7dd1a9fb3071048e855eca435ab24b43c678)), refs [#1173](https://github.com/cubrid-lab/pycubrid/issues/1173)
+* **release:** document v0.5.0 compatibility fixes and SQLAlchemy setup ([#1186](https://github.com/cubrid-lab/pycubrid/issues/1186)) ([e5e3c04](https://github.com/cubrid-lab/pycubrid/commit/e5e3c04e4af8b2afc236baadcf1631ec44dd49b6)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** document v1.1.0 asyncio and timing improvements ([#1190](https://github.com/cubrid-lab/pycubrid/issues/1190)) ([acf393b](https://github.com/cubrid-lab/pycubrid/commit/acf393b21dcff5e2802c8e1abe2a30415c4d13eb)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** establish a reader-focused release-note format ([#1178](https://github.com/cubrid-lab/pycubrid/issues/1178)) ([0aada1e](https://github.com/cubrid-lab/pycubrid/commit/0aada1eab2663a20b11a92ce79497a2b4c358cf2)), refs [#1177](https://github.com/cubrid-lab/pycubrid/issues/1177)
+* **release:** explain v0.4.0 LOB, schema and batch features ([#1185](https://github.com/cubrid-lab/pycubrid/issues/1185)) ([a67cd9c](https://github.com/cubrid-lab/pycubrid/commit/a67cd9cd08dd39419dafb45776277db183bce2a0)), refs [#1166](https://github.com/cubrid-lab/pycubrid/issues/1166)
+* **release:** standardize v1.3.0 through v1.6.2 release notes ([#1192](https://github.com/cubrid-lab/pycubrid/issues/1192)) ([2bd3057](https://github.com/cubrid-lab/pycubrid/commit/2bd305729f1a80248eb6644904a7e06ddde7a979)), refs [#1172](https://github.com/cubrid-lab/pycubrid/issues/1172)
+* **release:** standardize v1.9.0 and v1.11.0 notes ([#1195](https://github.com/cubrid-lab/pycubrid/issues/1195)) ([755638a](https://github.com/cubrid-lab/pycubrid/commit/755638af572e6cace5905212165d0283bdf96544)), refs [#1171](https://github.com/cubrid-lab/pycubrid/issues/1171)
+* remove contest deadline from Korean README sync guidance ([#1162](https://github.com/cubrid-lab/pycubrid/issues/1162)) ([2e42b0a](https://github.com/cubrid-lab/pycubrid/commit/2e42b0a927f6956a21e97d653dbc3d96050fc1bf))
+* remove deprecated organization roadmap and board links ([#1199](https://github.com/cubrid-lab/pycubrid/issues/1199)) ([12caa41](https://github.com/cubrid-lab/pycubrid/commit/12caa4161e3c74e15261cf425cec58b392090908))
+* remove obsolete ecosystem roadmap references from translations ([#1200](https://github.com/cubrid-lab/pycubrid/issues/1200)) ([cdd4f13](https://github.com/cubrid-lab/pycubrid/commit/cdd4f136f2eb54f3d99ec985725c1bf293bb96d2))
+* **site:** stop linking published pages to unpublished repository files ([#1147](https://github.com/cubrid-lab/pycubrid/issues/1147)) ([fa5ae28](https://github.com/cubrid-lab/pycubrid/commit/fa5ae284f1e1c9d049a36fa9465c75d539f62f0e))
+* **troubleshooting:** wait for a real Docker login and bind locally ([deba70f](https://github.com/cubrid-lab/pycubrid/commit/deba70fac7041b336e83f2a667727e0000f815fb)), refs [#1083](https://github.com/cubrid-lab/pycubrid/issues/1083)
 
 ### Tests
 
